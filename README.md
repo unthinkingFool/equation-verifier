@@ -17,6 +17,11 @@ An interactive playground for understanding automatic differentiation, the chain
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green)
 
+
+
+
+
+## Live : https://equation-verifier.vercel.app/
 </div>
 
 ---
