@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" role="img" aria-labelledby="t d">
+  <title id="t">Forward and backward pass through the default example</title>
+  <desc id="d">Values flow left to right through the graph for L = (relu(x*w1 + b1)*w2 + b2 - target)^2, then gradients flow right to left, each multiplied by a local derivative.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0e1218"/>
+      <stop offset="1" stop-color="#171d27"/>
+    </linearGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#2e333c"/>
+    </pattern>
+    <marker id="fwd" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#46a6ef"/>
+    </marker>
+    <marker id="bwd" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#ff8244"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="560" rx="20" fill="url(#bg)"/>
+  <rect width="1200" height="560" rx="20" fill="url(#dots)" opacity="0.5"/>
+  <rect x="0.5" y="0.5" width="1199" height="559" rx="19.5" fill="none" stroke="#2e333c"/>
+
+  <g font-family="'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace">
+
+    <!-- Header -->
+    <text x="40" y="52" font-size="20" font-weight="700" fill="#ebe7e0">L = ( relu(x·w1 + b1)·w2 + b2 − target )²</text>
+    <g font-size="13" fill="#9199a5">
+      <circle cx="46" cy="82" r="5" fill="#46a6ef"/>
+      <text x="60" y="87">value (forward pass)</text>
+      <circle cx="248" cy="82" r="5" fill="#ff8244"/>
+      <text x="262" y="87">gradient ∂L/∂node (backward pass)</text>
+    </g>
+
+    <!-- Forward arrows (top lane) -->
+    <g fill="none" stroke="#46a6ef" stroke-width="2.4" stroke-dasharray="7 5" marker-end="url(#fwd)">
+      <path d="M222 170 L 330 170"/>
+      <path d="M460 170 L 568 170"/>
+      <path d="M698 170 L 806 170"/>
+      <path d="M936 170 L 1044 170"/>
+    </g>
+    <!-- Backward arrows (bottom lane) -->
+    <g fill="none" stroke="#ff8244" stroke-width="2.4" stroke-dasharray="7 5" marker-end="url(#bwd)">
+      <path d="M1044 210 L 936 210"/>
+      <path d="M806 210 L 698 210"/>
+      <path d="M568 210 L 460 210"/>
+      <path d="M330 210 L 222 210"/>
+    </g>
+
+    <!-- Operation labels (forward) -->
+    <g font-size="12" fill="#3dbbae" text-anchor="middle" font-weight="700">
+      <text x="276" y="158">x·w1 + b1</text>
+      <text x="514" y="158">relu</text>
+      <text x="752" y="158">a1·w2 + b2</text>
+      <text x="990" y="158">(y − target)²</text>
+    </g>
+    <!-- Local derivative labels (backward) -->
+    <g font-size="12" fill="#ff8244" text-anchor="middle" font-weight="700">
+      <text x="990" y="232">× 2(y−t) = 0.16</text>
+      <text x="752" y="232">× w2 = 0.8</text>
+      <text x="514" y="232">× relu′ = 1</text>
+      <text x="276" y="232">× x, w1, 1</text>
+    </g>
+
+    <!-- Node cards -->
+    <!-- inputs -->
+    <rect x="36" y="126" width="184" height="128" rx="12" fill="#161b23" stroke="#46a6ef" stroke-width="2"/>
+    <g font-size="14">
+      <text x="54" y="156" fill="#ebe7e0" font-weight="700">x</text>
+      <text x="54" y="184" fill="#ebe7e0" font-weight="700">w1</text>
+      <text x="54" y="212" fill="#ebe7e0" font-weight="700">b1</text>
+      <text x="112" y="156" fill="#46a6ef">2.0</text>
+      <text x="112" y="184" fill="#46a6ef">0.5</text>
+      <text x="112" y="212" fill="#46a6ef">0.1</text>
+      <text x="204" y="156" fill="#ff8244" text-anchor="end">0.064</text>
+      <text x="204" y="184" fill="#ff8244" text-anchor="end">0.256</text>
+      <text x="204" y="212" fill="#ff8244" text-anchor="end">0.128</text>
+      <text x="54" y="240" fill="#9199a5" font-size="11">leaf variables</text>
+    </g>
+
+    <!-- z1 -->
+    <rect x="336" y="126" width="118" height="128" rx="12" fill="#161b23" stroke="#3dbbae" stroke-width="2"/>
+    <g font-size="14" text-anchor="middle">
+      <text x="395" y="156" fill="#ebe7e0" font-weight="700">z1</text>
+      <text x="395" y="196" fill="#46a6ef" font-size="20" font-weight="700">1.1</text>
+      <text x="395" y="232" fill="#ff8244" font-size="20" font-weight="700">0.128</text>
+    </g>
+
+    <!-- a1 -->
+    <rect x="574" y="126" width="118" height="128" rx="12" fill="#161b23" stroke="#3dbbae" stroke-width="2"/>
+    <g font-size="14" text-anchor="middle">
+      <text x="633" y="156" fill="#ebe7e0" font-weight="700">a1</text>
+      <text x="633" y="196" fill="#46a6ef" font-size="20" font-weight="700">1.1</text>
+      <text x="633" y="232" fill="#ff8244" font-size="20" font-weight="700">0.128</text>
+    </g>
+
+    <!-- y -->
+    <rect x="812" y="126" width="118" height="128" rx="12" fill="#161b23" stroke="#3dbbae" stroke-width="2"/>
+    <g font-size="14" text-anchor="middle">
+      <text x="871" y="156" fill="#ebe7e0" font-weight="700">y</text>
+      <text x="871" y="196" fill="#46a6ef" font-size="20" font-weight="700">1.08</text>
+      <text x="871" y="232" fill="#ff8244" font-size="20" font-weight="700">0.16</text>
+    </g>
+
+    <!-- L (output) -->
+    <rect x="1050" y="126" width="118" height="128" rx="12" fill="#161b23" stroke="#f5ae39" stroke-width="3.5"/>
+    <g font-size="14" text-anchor="middle">
+      <text x="1109" y="156" fill="#ebe7e0" font-weight="700">L (output)</text>
+      <text x="1109" y="196" fill="#46a6ef" font-size="20" font-weight="700">0.0064</text>
+      <text x="1109" y="232" fill="#ff8244" font-size="20" font-weight="700">1</text>
+    </g>
+
+    <!-- Chain rule walk-through -->
+    <text x="40" y="304" font-size="16" font-weight="700" fill="#ebe7e0">The chain rule, one hop at a time</text>
+    <line x1="40" y1="316" x2="1160" y2="316" stroke="#2e333c"/>
+
+    <g font-size="14" fill="#ebe7e0">
+      <text x="40" y="348"><tspan fill="#ff8244" font-weight="700">∂L/∂y</tspan>  = 2(y − target)         = 2(1.08 − 1)      = <tspan fill="#ff8244" font-weight="700">0.16</tspan></text>
+      <text x="40" y="378"><tspan fill="#ff8244" font-weight="700">∂L/∂a1</tspan> = ∂L/∂y · w2            = 0.16 · 0.8       = <tspan fill="#ff8244" font-weight="700">0.128</tspan></text>
+      <text x="40" y="408"><tspan fill="#ff8244" font-weight="700">∂L/∂z1</tspan> = ∂L/∂a1 · relu′(1.1)   = 0.128 · 1       = <tspan fill="#ff8244" font-weight="700">0.128</tspan></text>
+
+      <text x="620" y="348"><tspan fill="#ff8244" font-weight="700">∂L/∂w1</tspan> = ∂L/∂z1 · x            = 0.128 · 2       = <tspan fill="#ff8244" font-weight="700">0.256</tspan></text>
+      <text x="620" y="378"><tspan fill="#ff8244" font-weight="700">∂L/∂b1</tspan> = ∂L/∂z1 · 1            = 0.128 · 1       = <tspan fill="#ff8244" font-weight="700">0.128</tspan></text>
+      <text x="620" y="408"><tspan fill="#ff8244" font-weight="700">∂L/∂w2</tspan> = ∂L/∂y · a1            = 0.16 · 1.1      = <tspan fill="#ff8244" font-weight="700">0.176</tspan></text>
+    </g>
+
+    <text x="40" y="452" font-size="13" fill="#9199a5">Also: ∂L/∂x = ∂L/∂z1 · w1 = 0.064  ·  ∂L/∂b2 = ∂L/∂y = 0.16  ·  ∂L/∂target = −∂L/∂y = −0.16</text>
+    <text x="40" y="500" font-size="13" fill="#9199a5">Default example's numbers as computed by the engine; forward values and leaf gradients are asserted in src/engine/engine.test.ts.</text>
+    <text x="40" y="524" font-size="13" fill="#9199a5">Illustration of the app's behaviour. Colors follow the app's theme: blue = forward, orange = backward.</text>
+  </g>
+</svg>
